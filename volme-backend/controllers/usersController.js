@@ -32,7 +32,7 @@ const getUserByEmailAdresse = asyncHandler(async (req, res) => {
 })
 
 // // @desc Create new organizer
-// // @route POST /users
+// // @route POST /users/organizer
 const createNewOrganizer = asyncHandler(async (req, res) => {
     const { emailAdresse, username, password } = req.body
 
@@ -63,42 +63,35 @@ const createNewOrganizer = asyncHandler(async (req, res) => {
     }
 })
 
-// // @desc Update a user
-// // @route PATCH /users
-// const updateUser = asyncHandler(async (req, res) => {
-//     const { id, username, hashedPassword } = req.body
+// // @desc Update a organizer
+// // @route PATCH /users/organizer
+const updateUser = asyncHandler(async (req, res) => {
+    const { id, emailAdresse, username, profilePicturePath, phoneNumber, contactInfo, billingInfo } = req.body
 
-//     // Confirm data
-//     if (!id || !username) {
-//         return res.status(400).json({ message: 'All fields except hashedPassword are required' })
-//     }
+    // Confirm data
+    if (!id || !emailAdresse || !username || !profilePicturePath || !phoneNumber || !contactInfo || !billingInfo) {
+        return res.status(400).json({ message: 'All fields except hashedPassword are required' })
+    }
 
-//     // Does the user exist to update?
-//     const user = await User.findById(id).exec()
+    // Does the user exist to update?
+    const user = await User.findById(id).exec()
 
-//     if (!user) {
-//         return res.status(400).json({ message: 'User not found' })
-//     }
+    if (!user) {
+        return res.status(400).json({ message: 'User not found' })
+    }
 
-//     // Check for duplicate
-//     const duplicate = await User.findOne({ username }).lean().exec()
+    // Check for duplicate
+    const duplicate = await User.findOne({ emailAdresse }).lean().exec()
 
-//     // Allow updates to the original user
-//     if (duplicate && duplicate?._id.toString() !== id) {
-//         return res.status(409).json({ message: 'Duplicate username' })
-//     }
+    // Allow updates to the original user
+    if (duplicate && duplicate?._id.toString() !== id) {
+        return res.status(409).json({ message: 'Duplicate emailAdresse' })
+    }
 
-//     user.username = username
+    //todo
 
-//     if (hashedPassword) {
-//         // Hash Password
-//         user.hashedPassword = await bcrypt.hash(hashedPassword, 10) // salt rounds
-//     }
-
-//     const updatedUser = await user.save()
-
-//     res.json({ message: `${updatedUser.username} updated` })
-// })
+    res.json({ message: `${updatedUser.username} updated` })
+})
 
 // // @desc Delete a user
 // // @route DELETE /users
