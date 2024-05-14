@@ -1,0 +1,11 @@
+.login-container {
+    justify-content: center;
+    align-items: center;
+    min-width: 500px;
+}
+
+.input-container {
+    max-width: 300px;
+    /*centering*/
+    margin: 10px auto;
+}

@@ -5,5 +5,8 @@ volme-backend/.idea
 volme-backend/.env
 volme-backend/.DS_Store
 Volme-frontend/.DS_Store
+Volme-frontend/.vscode
+Volme-frontend/.idea
+Volme-frontend/node_modules
 .DS_Store
 .idea
