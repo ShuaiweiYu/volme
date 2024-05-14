@@ -2,8 +2,8 @@ const User = require('./User')
 const { SUBSCRIPTIONTYPE } = require('./enums/subscriptionType');
 
 class Organizer extends User {
-    constructor(emailAdresse, username, hashedPassword) {
-        super(emailAdresse, username, hashedPassword, "ORGANIZER")
+    constructor(emailAddress, username, hashedPassword) {
+        super(emailAddress, username, hashedPassword, "ORGANIZER")
         this.averageRating = -1
         this.contactInfo = ""
         this.isVerified = false

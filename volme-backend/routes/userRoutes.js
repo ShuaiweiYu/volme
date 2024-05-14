@@ -6,8 +6,8 @@ router.route('/')
     .get(usersController.getAllUsers)
     .delete(usersController.deleteUser)
 
-router.route('/:emailAdresse')
-    .get(usersController.getUserByEmailAdresse)
+router.route('/:emailAddress')
+    .get(usersController.getUserByEmailAddress)
 
 router.route('/organizers')
     .post(usersController.createNewOrganizer)

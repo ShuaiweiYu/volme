@@ -1,6 +1,6 @@
 class User {
-    constructor(emailAdresse, username, hashedPassword, role) {
-        this.emailAdresse = emailAdresse;
+    constructor(emailAddress, username, hashedPassword, role) {
+        this.emailAddress = emailAddress;
         this.username = username;
         this.hashedPassword = hashedPassword;
         this.role = role;

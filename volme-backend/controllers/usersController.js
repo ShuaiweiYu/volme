@@ -18,79 +18,17 @@ const getAllUsers = asyncHandler(async (req, res) => {
 })
 
 // @desc Get all users
-// @route GET /users/:emailAdresse
-const getUserByEmailAdresse = asyncHandler(async (req, res) => {
-    const {emailAdresse} = req.params
+// @route GET /users/:emailAddress
+const getUserByEmailAddress = asyncHandler(async (req, res) => {
+    const {emailAddress} = req.params
 
-    const user = await User.findOne({ emailAdresse }).select('-hashedPassword').lean().exec()
+    const user = await User.findOne({ emailAddress }).select('-hashedPassword').lean().exec()
 
     if (user) {
         res.json(user)
     } else {
         res.status(404).json({ message: 'User not found' })
     }
-})
-
-// // @desc Create new organizer
-// // @route POST /users/organizer
-const createNewOrganizer = asyncHandler(async (req, res) => {
-    const { emailAdresse, username, password } = req.body
-
-    // Confirm data
-    if (!emailAdresse || !username || !password) {
-        return res.status(400).json({ message: 'All fields are required' })
-    }
-
-    // Check for duplicate emailAdresse
-    const duplicate = await UserSchema.findOne({ emailAdresse }).lean().exec()
-
-    if (duplicate) {
-        return res.status(409).json({ message: 'Duplicate emailAdresse' })
-    }
-
-    // Hash Password
-    const hashedPwd = await bcrypt.hash(password, 10) // salt rounds
-
-    const organizerObj = new Organizer(emailAdresse, username, hashedPwd)
-
-    // Create and store new user
-    const organizer = await OrganizerSchema.create(organizerObj)
-
-    if (organizer) { //created
-        res.status(201).json({ message: `New organizer ${username} created` })
-    } else {
-        res.status(400).json({ message: 'Invalid user data received' })
-    }
-})
-
-// // @desc Update a organizer
-// // @route PATCH /users/organizer
-const updateUser = asyncHandler(async (req, res) => {
-    const { id, emailAdresse, username, profilePicturePath, phoneNumber, contactInfo, billingInfo } = req.body
-
-    // Confirm data
-    if (!id || !emailAdresse || !username || !profilePicturePath || !phoneNumber || !contactInfo || !billingInfo) {
-        return res.status(400).json({ message: 'All fields except hashedPassword are required' })
-    }
-
-    // Does the user exist to update?
-    const user = await User.findById(id).exec()
-
-    if (!user) {
-        return res.status(400).json({ message: 'User not found' })
-    }
-
-    // Check for duplicate
-    const duplicate = await User.findOne({ emailAdresse }).lean().exec()
-
-    // Allow updates to the original user
-    if (duplicate && duplicate?._id.toString() !== id) {
-        return res.status(409).json({ message: 'Duplicate emailAdresse' })
-    }
-
-    //todo
-
-    res.json({ message: `${updatedUser.username} updated` })
 })
 
 // // @desc Delete a user
@@ -123,9 +61,69 @@ const deleteUser = asyncHandler(async (req, res) => {
     res.json(reply)
 })
 
+// // @desc Create new organizer
+// // @route POST /users/organizer
+const createNewOrganizer = asyncHandler(async (req, res) => {
+    const { emailAddress, username, password } = req.body
+
+    // Confirm data
+    if (!emailAddress || !username || !password) {
+        return res.status(400).json({ message: 'All fields are required' })
+    }
+
+    // Check for duplicate emailAddress
+    const duplicate = await UserSchema.findOne({ emailAddress }).lean().exec()
+
+    if (duplicate) {
+        return res.status(409).json({ message: 'Duplicate emailAddress' })
+    }
+
+    // Hash Password
+    const hashedPwd = await bcrypt.hash(password, 10) // salt rounds
+
+    const organizerObj = new Organizer(emailAddress, username, hashedPwd)
+
+    // Create and store new user
+    const organizer = await OrganizerSchema.create(organizerObj)
+
+    if (organizer) { //created
+        res.status(201).json({ message: `New organizer ${username} created` })
+    } else {
+        res.status(400).json({ message: 'Invalid user data received' })
+    }
+})
+
+// // @desc Update a organizer
+// // @route PATCH /users/organizer
+const updateOrganizerInfo = asyncHandler(async (req, res) => {
+    const { emailAddress, profilePicturePath, phoneNumber, contactInfo, billingInfo } = req.body
+
+    // Confirm data
+    if ( !profilePicturePath || !phoneNumber || !contactInfo || !billingInfo) {
+        return res.status(400).json({ message: 'emailAddress, profilePicturePath, phoneNumber, contactInfo, billingInfo fields are required' })
+    }
+
+    // Check for duplicate
+    const organizer = await OrganizerSchema.findOne({ emailAddress }).lean().exec()
+
+    if (!organizer) {
+        return res.status(400).json({ message: 'Organizer not found' })
+    }
+
+    organizer.profilePicturePath = profilePicturePath
+    organizer.phoneNumber = phoneNumber
+    organizer.contactInfo(contactInfo)
+    organizer.billingInfo(billingInfo)
+
+    const updatedUser = await organizer.save()
+
+    res.json({ message: `${updatedUser.username} updated` })
+})
+
+
 module.exports = {
     getAllUsers,
-    getUserByEmailAdresse,
+    getUserByEmailAddress,
     createNewOrganizer,
     deleteUser
 }
