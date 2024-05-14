@@ -1,0 +1,7 @@
+volme-backend/node_modules
+volme-backend/logs
+volme-backend/.vscode
+volme-backend/.env
+volme-backend/.DS_Store
+Volme-frontend/.DS_Store
+.DS_Store

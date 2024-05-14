@@ -1,0 +1,8 @@
+ const SUBSCRIPTIONTYPE = {
+    FREE: "FREE",
+    BASIC: "BASIC",
+    PREMIUM: "PREMIUM",
+    PAYASGO: "PAYASGO"
+}
+
+module.exports = { SUBSCRIPTIONTYPE };

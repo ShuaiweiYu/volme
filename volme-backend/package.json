@@ -1,0 +1,28 @@
+{
+  "name": "volme-backend",
+  "version": "1.0.0",
+  "description": "This is the backend project for seba-Master course at TUM in 2024SS for team 18",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server",
+    "dev": "nodemon server"
+  },
+  "keywords": [],
+  "author": "Shuaiwei YU, Xufan LU, Pengsen Ding, Yuyang Cao",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cookie-parser": "^1.4.6",
+    "cors": "^2.8.5",
+    "date-fns": "^3.6.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-async-handler": "^1.2.0",
+    "mongoose": "^8.3.4",
+    "mongoose-sequence": "^6.0.1",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}
