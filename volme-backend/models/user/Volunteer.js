@@ -11,6 +11,7 @@ class Volunteer extends User {
         this.skills = [];
         this.languages = [];
         this.gender = null;
+        this.participatedEvents = []
     }
 }
 
@@ -31,6 +32,11 @@ const VolunteerSchema = new mongoose.Schema({
     },
     gender: {
         type: String
+    },
+    participatedEvents: {
+        type: [String],
+        required: true,
+        default: []
     }
 })
 

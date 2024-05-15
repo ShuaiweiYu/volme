@@ -103,11 +103,11 @@ const createNewOrganizer = asyncHandler(async (req, res) => {
 // @desc Update the generic information of an organizer
 // @route PATCH /users/organizer
 const updateOrganizerInfo = asyncHandler(async (req, res) => {
-    const { emailAddress, profilePicturePath, phoneNumber, contactInfo, billingInfo } = req.body
+    const { emailAddress, profilePicturePath, phoneNumber, contactInfo, billingInfo, publishedEvents } = req.body
 
     // Confirm data
-    if ( !profilePicturePath || !phoneNumber || !contactInfo || !billingInfo) {
-        return res.status(400).json({ message: 'emailAddress, profilePicturePath, phoneNumber, contactInfo, billingInfo fields are required' })
+    if ( !profilePicturePath || !phoneNumber || !contactInfo || !billingInfo || !publishedEvents) {
+        return res.status(400).json({ message: 'emailAddress, profilePicturePath, phoneNumber, contactInfo, billingInfo, publishedEvents fields are required' })
     }
 
     const organizer = await OrganizerModel.findOne({ emailAddress }).lean().exec()
@@ -120,6 +120,7 @@ const updateOrganizerInfo = asyncHandler(async (req, res) => {
     organizer.phoneNumber = phoneNumber
     organizer.contactInfo = contactInfo
     organizer.billingInfo = billingInfo
+    organizer.publishedEvents = publishedEvents
 
     const updatedUser = await organizer.save()
 
@@ -167,11 +168,11 @@ const createNewVolunteer = asyncHandler(async (req, res) => {
 // @desc Update the generic information of an organizer
 // @route PATCH /users/volunteer
 const updateVolunteerInfo = asyncHandler(async (req, res) => {
-    const { emailAddress, profilePicturePath, phoneNumber, participationCount, birthday, skills, languages, gender } = req.body
+    const { emailAddress, profilePicturePath, phoneNumber, participationCount, birthday, skills, languages, gender, participatedEvents } = req.body
 
     // Confirm data
-    if ( !profilePicturePath || !phoneNumber || !participationCount || !birthday || !skills || !languages || !gender) {
-        return res.status(400).json({ message: 'emailAddress, profilePicturePath, phoneNumber, participationCount, birthday, skills, languages, gender fields are required' })
+    if ( !profilePicturePath || !phoneNumber || !participationCount || !birthday || !skills || !languages || !gender || !participatedEvents) {
+        return res.status(400).json({ message: 'emailAddress, profilePicturePath, phoneNumber, participationCount, birthday, skills, languages, gender, participatedEvents fields are required' })
     }
 
     // Check for duplicate
@@ -188,6 +189,7 @@ const updateVolunteerInfo = asyncHandler(async (req, res) => {
     volunteer.skills = skills
     volunteer.languages = languages
     volunteer.gender = gender
+    volunteer.participatedEvents = participatedEvents
 
     for (const skillName of skills) {
         const skill = await SkillModel.findOne({ skillName }).lean().exec()
@@ -205,7 +207,6 @@ const updateVolunteerInfo = asyncHandler(async (req, res) => {
 
     res.status(200).json({ message: `${updatedUser.username} updated` })
 })
-
 
 module.exports = {
     getAllUsers,

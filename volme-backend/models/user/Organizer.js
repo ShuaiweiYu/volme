@@ -11,6 +11,7 @@ class Organizer extends User {
         this.subscriptionType = SUBSCRIPTIONTYPE.FREE
         this.billingInfo = ""
         this.subscriptionValidity = null
+        this.publishedEvents = []
     }
 }
 
@@ -36,8 +37,12 @@ const OrganizerSchema = new mongoose.Schema({
     },
     subscriptionValidity: {
         type: Date
+    },
+    publishedEvents: {
+        type: [],
+        required: true,
+        default: []
     }
-    
 });
 
 const OrganizerModel = UserModel.discriminator('Organizer', OrganizerSchema)
