@@ -12,4 +12,6 @@ router.route('/:emailAddress')
 router.route('/organizers')
     .post(usersController.createNewOrganizer)
 
+router.route('/organizers/payment')
+
 module.exports = router
