@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const {User, UserModel} = require('./User')
-const { SUBSCRIPTIONTYPE } = require('./enums/subscriptionType');
+const { SUBSCRIPTIONTYPE } = require('../enums/subscriptionType');
 
 class Organizer extends User {
     constructor(emailAddress, username, hashedPassword) {

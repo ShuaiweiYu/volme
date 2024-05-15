@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const {User, UserModel} = require('./User')
-const {LANGUAGE} = require('./enums/language')
-const {GENDER} = require('./enums/gender')
+const {LANGUAGE} = require('../enums/language')
+const {GENDER} = require('../enums/gender')
 
 class Volunteer extends User {
     constructor(emailAddress, username, hashedPassword) {
