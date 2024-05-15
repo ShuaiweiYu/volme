@@ -1,4 +1,5 @@
-const User = require('./User')
+const mongoose = require('mongoose');
+const {User, UserModel} = require('./User')
 const {LANGUAGE} = require('./enums/language')
 const {GENDER} = require('./enums/gender')
 
@@ -13,4 +14,29 @@ class Volunteer extends User {
     }
 }
 
-module.exports = Volunteer
+const VolunteerSchema = new mongoose.Schema({
+    ...UserModel.schema.obj,
+    participationCount: {
+        type: Number,
+        required: true
+    },
+    birthday: {
+        type: Date
+    },
+    skills: {
+        type: [String]
+    },
+    languages: {
+        type: [String]
+    },
+    gender: {
+        type: String
+    }
+})
+
+const VolunteerModel = UserModel.discriminator('Volunteer', VolunteerSchema)
+
+module.exports = {
+    Volunteer,
+    VolunteerModel
+}

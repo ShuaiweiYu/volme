@@ -1,3 +1,6 @@
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
 class User {
     constructor(emailAddress, username, hashedPassword, role) {
         this.emailAddress = emailAddress;
@@ -17,4 +20,35 @@ class User {
     }
 }
 
-module.exports = User;
+const UserSchema = new Schema({
+    emailAddress: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    username: {
+        type: String,
+        required: true
+    },
+    hashedPassword: {
+        type: String,
+        required: true
+    },
+    profilePicturePath: {
+        type: String
+    },
+    phoneNumber: {
+        type: String
+    }, 
+    role: {
+        type: String,
+        required: true
+    }
+});
+
+const UserModel = mongoose.model('User', UserSchema);
+
+module.exports = {
+    User,
+    UserModel
+}

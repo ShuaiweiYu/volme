@@ -1,4 +1,5 @@
-const User = require('./User')
+const mongoose = require('mongoose');
+const {User, UserModel} = require('./User')
 const { SUBSCRIPTIONTYPE } = require('./enums/subscriptionType');
 
 class Organizer extends User {
@@ -11,31 +12,37 @@ class Organizer extends User {
         this.billingInfo = ""
         this.subscriptionValidity = null
     }
-
-    setContactInfo(contactInfo) {
-        this.contactInfo = contactInfo
-    }
-
-    setBillingInfo(billingInfo) {
-        this.billingInfo = billingInfo
-    }
-
-    setAverageRating(averageRating) {
-        this.averageRating = averageRating
-    }
-
-    setSubscriptionType(subscriptionType) {
-        this.subscriptionType = subscriptionType
-    }
-
-    setSubscriptionValidity(subscriptionValidity) {
-        this.subscriptionValidity = subscriptionValidity
-    }
-
-    verifyOrganizer() {
-        this.isVerified = true
-    }
-
 }
 
-module.exports = Organizer
+const OrganizerSchema = new mongoose.Schema({
+    ...UserModel.schema.obj,
+    averageRating: {
+        type: Number,
+        required: true
+    },
+    contactInfo: {
+        type: String
+    },
+    isVerified: {
+        type: Boolean,
+        required: true
+    },
+    subscriptionType: {
+        type: String,
+        required: true
+    },
+    billingInfo: {
+        type: String
+    },
+    subscriptionValidity: {
+        type: Date
+    }
+    
+});
+
+const OrganizerModel = UserModel.discriminator('Organizer', OrganizerSchema)
+
+module.exports = {
+    Organizer,
+    OrganizerModel
+}

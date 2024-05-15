@@ -1,17 +1,14 @@
-const UserSchema = require('../models/user/UserSchema')
-const OrganizerSchema = require('../models/user/OrganizerSchema')
-const Organizer = require('../models/user/Organizer')
-const VolunteerSchema = require('../models/user/VolunteerSchema')
-const Volunteer = require('../models/user/Volunteer')
-const Skill = require('../models/util/Skill')
-const SkillSchema = require('../models/util/SkillSchema')
+const {User, UserModel} = require('../models/user/User')
+const {Organizer, OrganizerModel} = require('../models/user/Organizer')
+const {Volunteer, VolunteerModel} = require('../models/user/Volunteer')
+const {Skill, SkillModel} = require('../models/util/Skill')
 const asyncHandler = require('express-async-handler')
 const bcrypt = require('bcrypt')
 
 // @desc Get all users
 // @route GET /users
 const getAllUsers = asyncHandler(async (req, res) => {
-    const users = await UserSchema.find().select('-password').lean()
+    const users = await UserModel.find().select('-password').lean()
     
     // If no users
     if (!users?.length) {
@@ -82,7 +79,7 @@ const createNewOrganizer = asyncHandler(async (req, res) => {
     }
 
     // Check for duplicate emailAddress
-    const duplicate = await UserSchema.findOne({ emailAddress }).lean().exec()
+    const duplicate = await UserModel.findOne({ emailAddress }).lean().exec()
 
     if (duplicate) {
         return res.status(409).json({ message: 'Duplicate emailAddress' })
@@ -94,7 +91,7 @@ const createNewOrganizer = asyncHandler(async (req, res) => {
     const organizerObj = new Organizer(emailAddress, username, hashedPwd)
 
     // Create and store new user
-    const organizer = await OrganizerSchema.create(organizerObj)
+    const organizer = await OrganizerModel.create(organizerObj)
 
     if (organizer) { //created
         res.status(201).json({ message: `New organizer ${username} created` })
@@ -113,7 +110,7 @@ const updateOrganizerInfo = asyncHandler(async (req, res) => {
         return res.status(400).json({ message: 'emailAddress, profilePicturePath, phoneNumber, contactInfo, billingInfo fields are required' })
     }
 
-    const organizer = await OrganizerSchema.findOne({ emailAddress }).lean().exec()
+    const organizer = await OrganizerModel.findOne({ emailAddress }).lean().exec()
 
     if (!organizer) {
         return res.status(400).json({ message: 'Organizer not found' })
@@ -146,7 +143,7 @@ const createNewVolunteer = asyncHandler(async (req, res) => {
     }
 
     // Check for duplicate emailAddress
-    const duplicate = await UserSchema.findOne({ emailAddress }).lean().exec()
+    const duplicate = await UserModel.findOne({ emailAddress }).lean().exec()
 
     if (duplicate) {
         return res.status(409).json({ message: 'Duplicate emailAddress' })
@@ -158,7 +155,7 @@ const createNewVolunteer = asyncHandler(async (req, res) => {
     const volunteerObj = new Volunteer(emailAddress, username, hashedPwd)
 
     // Create and store new user
-    const volunteer = await VolunteerSchema.create(volunteerObj)
+    const volunteer = await VolunteerModel.create(volunteerObj)
 
     if (volunteer) { //created
         res.status(201).json({ message: `New volunteer ${username} created` })
@@ -178,7 +175,7 @@ const updateVolunteerInfo = asyncHandler(async (req, res) => {
     }
 
     // Check for duplicate
-    const volunteer = await VolunteerSchema.findOne({ emailAddress }).lean().exec()
+    const volunteer = await VolunteerModel.findOne({ emailAddress }).lean().exec()
 
     if (!volunteer) {
         return res.status(400).json({ message: 'Volunteer not found' })
@@ -193,14 +190,14 @@ const updateVolunteerInfo = asyncHandler(async (req, res) => {
     volunteer.gender = gender
 
     for (const skillName of skills) {
-        const skill = await SkillSchema.findOne({ skillName }).lean().exec()
+        const skill = await SkillModel.findOne({ skillName }).lean().exec()
         if (skill) {
             skill.count++
             skill.save()
         } else {
             const newSkill = new Skill(skillName)
             newSkill.count++
-            SkillSchema.create(newSkill)
+            SkillModel.create(newSkill)
         }
     }
 
