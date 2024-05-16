@@ -9,7 +9,7 @@ class Skill {
     }
 }
 
-const skillSchema = new Schema({
+const SkillSchema = new Schema({
     skillName: {
         type: String,
         required: true
@@ -20,7 +20,7 @@ const skillSchema = new Schema({
     }
 })
 
-const SkillModel = mongoose.model('Skill', skillSchema);
+const SkillModel = mongoose.model('Skill', SkillSchema);
 
 module.exports = {
     Skill,

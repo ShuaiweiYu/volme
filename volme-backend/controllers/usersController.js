@@ -23,7 +23,7 @@ const getAllUsers = asyncHandler(async (req, res) => {
 const getUserByEmailAddress = asyncHandler(async (req, res) => {
     const {emailAddress} = req.params
 
-    const user = await User.findOne({ emailAddress }).select('-hashedPassword').lean().exec()
+    const user = await UserModel.findOne({ emailAddress }).select('-hashedPassword').lean().exec()
 
     if (user) {
         res.json(user)

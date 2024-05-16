@@ -21,6 +21,7 @@ app.use(express.json())
 app.use(cookieParser())
 
 app.use('/users', require('./routes/userRoutes'))
+app.use('/codes', require('./routes/codeRoutes'))
 
 app.all('*', (req, res) => {
     res.status(404).json({ message: 'Unknow URL' })
