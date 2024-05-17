@@ -18,6 +18,7 @@ import {Visibility, VisibilityOff} from "@mui/icons-material";
 import organizerIcon from "../Assets/community.png";
 import volunteerIcon from "../Assets/vest.png";
 
+// todo: how to use i18n here?
 const steps = ['Who are you?', 'Tell us more about your details!', 'Confirm & Go!'];
 
 const RoleButton = styled(Button)(({ selected }) => ({
@@ -32,22 +33,24 @@ const RoleButton = styled(Button)(({ selected }) => ({
     padding: '10px',
     margin: '0 10px',
 }));
-
-const Step1 = ({ role, setRole, showPassword, showConfirmPassword, handleClickShowPassword, handleClickShowConfirmPassword, handleMouseDownPassword }) => (
-    <>
-        <div style={{ textAlign: 'center', marginBottom: '10px' }}>Who are you?</div>
+// {t('credentials.signUp.step1Organizer')}
+const Step1 = ({ role, setRole, showPassword, showConfirmPassword, handleClickShowPassword, handleClickShowConfirmPassword, handleMouseDownPassword }) => {
+    const { t } = useTranslation();
+    return (
+        <>
+        <div style={{ textAlign: 'center', marginBottom: '10px' }}>{t('credentials.signUp.step1intro')}</div>
         <div className="role-selection" style={{ display: 'flex', justifyContent: 'center' }}>
             <RoleButton variant="outlined" selected={role === 'volunteer'} onClick={() => setRole('volunteer')}>
                 <img src={volunteerIcon} className="icon-size" alt="volunteerIcon" />
-                <span>Volunteer</span>
+                <span>{t('credentials.signUp.step1Volunteer')}</span>
             </RoleButton>
             <RoleButton variant="outlined" selected={role === 'organizer'} onClick={() => setRole('organizer')}>
                 <img src={organizerIcon} className="icon-size" alt="organizerIcon" />
-                <span>Organizer</span>
+                <span>{t('credentials.signUp.step1Organizer')}</span>
             </RoleButton>
         </div>
-        <div style={{ textAlign: 'center', marginTop: '20px' }}>Set up your account</div>
-        <TextField id="outlined-email" label="Email" variant="outlined" fullWidth margin="normal" />
+        <div style={{ textAlign: 'center', marginTop: '20px' }}>{t('credentials.signUp.step1SetUp')}</div>
+        <TextField id="outlined-email" label={t('credentials.signUp.step1Email')} variant="outlined" fullWidth margin="normal" />
 
         <FormControl variant="outlined" fullWidth margin="normal">
             <InputLabel htmlFor="outlined-password">Password</InputLabel>
@@ -91,7 +94,9 @@ const Step1 = ({ role, setRole, showPassword, showConfirmPassword, handleClickSh
             />
         </FormControl>
     </>
-);
+    )
+}
+
 
 const Step2ForVolunteer = (
     <>
@@ -253,18 +258,18 @@ export const SignUpModal = () => {
                         {activeStep === 2 && Step3}
                     </Stack>
                     <div className="step-buttons" style={{ display: 'flex', marginTop: '10px', justifyContent: activeStep > 0 ? 'space-between' : 'center', width: '100%' }}>
-                        {activeStep == 0 && (
+                        {activeStep === 0 && (
                             <Button onClick={handleNext} type="button" style={{ width: '100%' }}>Next</Button>
                         )}
 
-                        {activeStep == 1 && (
+                        {activeStep === 1 && (
                             <>
                             <Button onClick={handleBack} type="button" style={{ width: '48%' }}>Back</Button>
                             <Button type="submit" style={{ width: '48%' }}>Sign Up</Button>
                             </>
                         )}
 
-                        {activeStep == 2 && (
+                        {activeStep === 2 && (
                             <Button type="submit" style={{ width: '100%' }}>Confirm</Button>
                         ) }
                     </div>

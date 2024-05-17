@@ -5,7 +5,7 @@ const asyncHandler = require('express-async-handler')
 // @desc Get code by id
 // @route GET /codes/:id
 const getCodeBtId = asyncHandler(async (req, res) => {
-    const { id } = req.patams
+    const { id } = req.params
 
     const code = await CodeModel.findById({ id }).lean().exec()
 
@@ -19,7 +19,7 @@ const getCodeBtId = asyncHandler(async (req, res) => {
 // @desc Generate a code for user registration
 // @route PUT /codes
 const generateRegistrationCode = asyncHandler(async (req, res) => {
-    const { emailAddress } = req.patams
+    const { emailAddress } = req.params
 
     if (!emailAddress) {
         return res.status(400).json({ message: 'Field emailAddress is required' })
@@ -40,7 +40,7 @@ const generateRegistrationCode = asyncHandler(async (req, res) => {
 // @desc Invalidate a code due to requesting a new code
 // @route PATCH /codes/:id
 const invalidateCode = asyncHandler(async (req, res) => {
-    const { id } = req.patams
+    const { id } = req.params
 
     const code = await CodeModel.findById({ id }).lean().exec()
 
@@ -54,7 +54,7 @@ const invalidateCode = asyncHandler(async (req, res) => {
 // @desc Generate the code for user registration
 // @route GET /codes/check/:id
 const checkCodeValidity = asyncHandler(async (req, res) => {
-    const { id, emailAddress, inputValue } = req.patams
+    const { id, emailAddress, inputValue } = req.params
     
     const code = await CodeModel.findById({ id }).lean().exec()
 

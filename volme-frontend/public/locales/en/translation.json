@@ -17,6 +17,14 @@
             "reset":"reset"
         },
         "signUp" : {
+            "stepsList1":"Who are you?",
+            "stepsList2":"Tell us more about your details!",
+            "stepsList3":"Confirm & Go",
+            "step1intro":"Who are you?",
+            "step1Volunteer":"Volunteer",
+            "step1Organizer":"Organizer",
+            "step1SetUp":"Set up your account:",
+            "step1Email":"E-mail address"
 
         }
     }
