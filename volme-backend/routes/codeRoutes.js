@@ -11,3 +11,5 @@ router.route('/:id')
 
 router.route('/check/:id')
     .get(codeController.checkCodeValidity)
+
+module.exports = router
