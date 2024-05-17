@@ -9,3 +9,8 @@
     /*centering*/
     margin: 10px auto;
 }
+
+.icon-size {
+    height: 80px;
+    width: 80px;
+}

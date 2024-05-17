@@ -30,10 +30,12 @@ const NavBar = () => {
         setIsLoginModal(state);
     };
 
-    const handleClose = () => {
+    const handleClose = (event, reason) => {
+        if (reason === "backdropClick") {
+            return;
+        }
         setOpenModal(false);
     };
-
 
     const toggleDarkMode = () => {
         setIsDarkMode(!isDarkMode);
