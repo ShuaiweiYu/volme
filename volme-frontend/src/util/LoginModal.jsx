@@ -1,17 +1,17 @@
+import "./LoginModal.css"
+
 import React, {useState} from 'react'
+import { useTranslation } from 'react-i18next';
+
 import Button from '@mui/joy/Button';
-import Input from '@mui/joy/Input';
 import Stack from '@mui/joy/Stack';
 import Stepper from '@mui/joy/Stepper';
 import Step from '@mui/joy/Step';
-import StepButton from '@mui/joy/StepButton';
 import StepIndicator from '@mui/joy/StepIndicator';
 import Check from '@mui/icons-material/Check';
 import Divider from '@mui/joy/Divider';
 import { styled } from '@mui/joy/styles';
-
-import "./LoginModal.css"
-import {FormControl, InputAdornment, InputLabel, OutlinedInput, TextField} from "@mui/material";
+import {FormControl, InputAdornment, InputLabel, OutlinedInput, TextField, Link} from "@mui/material";
 import IconButton from "@mui/joy/IconButton";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 
@@ -125,6 +125,7 @@ const Step3 = (
 );
 
 export const LoginModal = () => {
+    const { t } = useTranslation();
     const [showPassword, setShowPassword] = useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -141,9 +142,9 @@ export const LoginModal = () => {
             >
                 <div className="input-container">
                     <Stack spacing={1}>
-                        <TextField id="outlined-basic" label="email" variant="outlined"/>
+                        <TextField id="outlined-basic" label={t('credentials.login.email')} variant="outlined"/>
                         <FormControl variant="outlined">
-                            <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                            <InputLabel htmlFor="outlined-adornment-password">{t('credentials.login.password')}</InputLabel>
                             <OutlinedInput
                                 id="outlined-adornment-password"
                                 type={showPassword ? 'text' : 'password'}
@@ -159,22 +160,28 @@ export const LoginModal = () => {
                                         </IconButton>
                                     </InputAdornment>
                                 }
-                                label="Password"
+                                label={t('credentials.login.password')}
                             />
                         </FormControl>
-                        <Button type="submit">Log in</Button>
+                        <Button type="submit">{t('credentials.login.login')}</Button>
                     </Stack>
+                    <Divider style={{marginTop: "10px"}}/>
+                    <div>
+                        <p>
+                            <span>{t('credentials.login.forget')}</span>
+                            <Link href="#">
+                                <span>{t('credentials.login.reset')}</span>
+                            </Link>
+                        </p>
+                    </div>
                 </div>
             </form>
         </div>
 
 
         //     todo:表单要做验证 https://muhimasri.com/blogs/mui-validation/
-        //     todo:样子改好看一点 -> css style
         //     todo:加上忘记密码 -> 是不是要用另一个页面？
         //     todo:加上OAuth登录选项 -> 要在后端加逻辑
-        //     todo:去掉modal的边框
-        //     todo:步骤栏里面一行文字太长，应该要换行
     )
 }
 
@@ -232,12 +239,6 @@ export const SignUpModal = () => {
                 ))}
             </Stepper>
             <form onSubmit={handleSubmit}>
-                {/* <button onClick={showStep}>
-                    show step
-                </button>
-                <button onClick={addStep}>
-                    add step
-                </button> */}
                 <div className="input-container">
                     <Stack spacing={1}>
                         {activeStep === 0 && <Step1 

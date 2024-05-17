@@ -1,0 +1,23 @@
+{
+    "test": "does i18n works?",
+    "navBar" : {
+        "title": "VolMe",
+        "home": "Home",
+        "about": "About",
+        "product": "Product",
+        "login": "Log in",
+        "signup": "Sign up"
+    },
+    "credentials" : {
+        "login" : {
+            "email": "Your E-mail address",
+            "password": "Your password",
+            "login": "Log in",
+            "forget":"Forget your password? ",
+            "reset":"reset"
+        },
+        "signUp" : {
+
+        }
+    }
+}

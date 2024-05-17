@@ -1,5 +1,9 @@
-import {Link} from "react-router-dom";
+import "./NavBar.css"
+
 import {useState} from "react";
+import { useTranslation } from 'react-i18next';
+
+import {Link} from "react-router-dom";
 import Button from '@mui/joy/Button';
 import ButtonGroup from '@mui/joy/ButtonGroup';
 import {styled} from '@mui/joy/styles';
@@ -12,14 +16,14 @@ import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
-import "./NavBar.css"
-
 import hand from "../Assets/hand.png";
 
 import {LoginModal, SignUpModal} from './LoginModal';
 
 
 const NavBar = () => {
+    const { t } = useTranslation();
+
     const [isDarkMode, setIsDarkMode] = useState(false);
     const [openModal, setOpenModal] = useState(false);
     const [isLoginModal, setIsLoginModal] = useState(false);
@@ -58,15 +62,15 @@ const NavBar = () => {
             </div>
 
             <div className="title">
-                <h1>find your volunteer</h1>
+                <h1>{t('navBar.title')}</h1>
             </div>
 
             <div className="nav">
                 <nav>
                     <ul>
-                        <li><Link to="/">Home</Link></li>
-                        <li><Link to="/About">About</Link></li>
-                        <li><Link to="/Product">Product</Link></li>
+                        <li><Link to="/">{t('navBar.home')}</Link></li>
+                        <li><Link to="/About">{t('navBar.about')}</Link></li>
+                        <li><Link to="/Product">{t('navBar.product')}</Link></li>
                     </ul>
                 </nav>
             </div>
@@ -83,8 +87,8 @@ const NavBar = () => {
                     : (
                         <div>
                             <ButtonGroup variant="outlined" aria-label="Basic button group">
-                                <Button onClick={() => handleClickOpen(true)}>Log in</Button>
-                                <Button onClick={() => handleClickOpen(false)}>Sign up</Button>
+                                <Button onClick={() => handleClickOpen(true)}>{t('navBar.login')}</Button>
+                                <Button onClick={() => handleClickOpen(false)}>{t('navBar.signup')}</Button>
                             </ButtonGroup>
 
                             <div>
@@ -94,7 +98,7 @@ const NavBar = () => {
                                     open={openModal}
                                 >
                                     <DialogTitle sx={{m: 0, p: 2}} id="customized-dialog-title">
-                                        {isLoginModal ? "Log in" : "Sign up"}
+                                        {isLoginModal ? t('navBar.login') : t('navBar.signup')}
                                     </DialogTitle>
                                     <IconButton
                                         aria-label="close"

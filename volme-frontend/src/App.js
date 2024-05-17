@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import './App.css';
 import NavBar from "./util/NavBar";
 import Home from "./pages/Home";
@@ -8,6 +9,12 @@ import NoFound from "./pages/NotFound";
 import UserProfile from "./pages/UserProfile";
 
 function App() {
+    const { t, i18n } = useTranslation();
+
+    const changeLanguage = (lng) => {
+        i18n.changeLanguage(lng);
+    };
+
     return (
         <div className="App">
 
