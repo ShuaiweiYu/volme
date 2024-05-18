@@ -64,7 +64,7 @@ const selectUsersData = createSelector(
     selectUsersResult,
     // usersResult => usersResult.data 是一个回调函数，它接收 selectUsersResult 返回的结果对象作为参数，并从中选择出 data 字段。
     // 这个 data 字段通常包含了规范化的用户数据，即通过 ID 和实体对象组成的数据结构。
-    usersResult => usersResult.data // normalized state object with ids & entities
+    usersResult => usersResult.data // normalized app object with ids & entities
 )
 
 // usersAdapter.getSelectors() 是从用户适配器 (usersAdapter) 中获取一组预定义的选择器，这些选择器用于选择用户数据的不同部分。
@@ -72,7 +72,7 @@ export const {
     selectAll: selectAllUsers,
     selectById: selectUserById,
     selectIds: selectUserIds
-    // Pass in a selector that returns the users slice of state
+    // Pass in a selector that returns the users slice of app
 } = usersAdapter.getSelectors(state => selectUsersData(state) ?? initialState)
 
 //todo: reading -> https://www.redux.org.cn/tutorials/essentials/part-7-rtk-query-basics.html
