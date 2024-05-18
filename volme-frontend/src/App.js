@@ -7,6 +7,7 @@ import About from "./pages/About";
 import Product from "./pages/Product";
 import NoFound from "./pages/NotFound";
 import UserProfile from "./pages/UserProfile";
+import ForgotPassword from "./util/ForgetPasswordPage";
 
 function App() {
     const { t, i18n } = useTranslation();
@@ -25,6 +26,7 @@ function App() {
                     <Route path='/about' element={<About/>}/>
                     <Route path='/product' element={<Product/>}/>
                     <Route path='/profile/:username' element={<UserProfile/>}/>
+                    <Route path='/reset-password' element={<ForgotPassword/>} />
                     <Route path='*' element={<NoFound/>}/>
                 </Routes>
             </Router>

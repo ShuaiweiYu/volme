@@ -1,16 +1,15 @@
-import "./LoginModal.css"
-
-import React, {useState} from 'react'
-import {useTranslation} from 'react-i18next';
+import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import dayjs from 'dayjs';
+import { styled } from '@mui/joy/styles';
 
 import Button from '@mui/joy/Button';
 import Stack from '@mui/joy/Stack';
 import Stepper from '@mui/joy/Stepper';
 import Step from '@mui/joy/Step';
 import StepIndicator from '@mui/joy/StepIndicator';
-import Check from '@mui/icons-material/Check';
-import Divider from '@mui/joy/Divider';
-import {styled} from '@mui/joy/styles';
+import IconButton from '@mui/joy/IconButton';
+
 import {
     FormControl,
     InputAdornment,
@@ -20,15 +19,22 @@ import {
     Link,
     FormHelperText,
     Avatar
-} from "@mui/material";
-import IconButton from "@mui/joy/IconButton";
-import {SentimentSatisfiedAlt, Visibility, VisibilityOff, DriveFolderUpload} from "@mui/icons-material";
-import {DatePicker, LocalizationProvider} from '@mui/x-date-pickers';
-import {AdapterDayjs} from '@mui/x-date-pickers/AdapterDayjs'
+} from '@mui/material';
+import {
+    SentimentSatisfiedAlt,
+    Visibility,
+    VisibilityOff,
+    DriveFolderUpload,
+    Check
+} from '@mui/icons-material';
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
-import organizerIcon from "../Assets/community.png";
-import volunteerIcon from "../Assets/vest.png";
-import dayjs from "dayjs";
+import organizerIcon from '../Assets/community.png';
+import volunteerIcon from '../Assets/vest.png';
+
+import "./LoginModal.css";
+import {Divider} from "@mui/joy";
 
 const validateEmail = (email) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;

@@ -47,5 +47,20 @@
             "signUpButton": "Sign up",
             "confirmButton": "Confirm"
         }
+    },
+    "resetPassword": {
+        "title": "Reset your password",
+        "emailInfo": "Enter your E-mail address to reset your password",
+        "email": "E-mail address",
+        "sendCodeButton": "Send Code",
+        "codeInfo": "Enter the confirmation code we sent to your email address",
+        "code": "Confirmation code",
+        "confirmButton": "Confirm",
+        "resetInfo": "Reset your password",
+        "newPassword": "New password",
+        "confirmPassword": "Confirm password",
+        "stepsList1":"Enter your E-mail address",
+        "stepsList2":"Enter the confirmation code we sent to your email address",
+        "stepsList3":"Reset your password"
     }
 }
