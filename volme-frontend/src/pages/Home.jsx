@@ -18,7 +18,7 @@ const TestComp2 = () => {
 
 const Home = () => {
     const { t } = useTranslation();
-    
+
     return (
         <div>
             <TestComp1 t={t}/>

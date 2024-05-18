@@ -14,9 +14,14 @@
             "password": "Your password",
             "login": "Log in",
             "forget":"Forget your password? ",
-            "reset":"reset"
+            "reset":"reset",
+            "invalidEmail": "Invalid email address"
         },
         "signUp" : {
+            "passwordNotMatch": "Passwords do not match",
+            "stepInfo1": "Who are you?",
+            "stepInfo2": "Tell us more about your details!",
+            "stepInfo3": "Confirm & Go",
             "stepsList1":"Who are you?",
             "stepsList2":"Tell us more about your details!",
             "stepsList3":"Confirm & Go",
@@ -24,8 +29,23 @@
             "step1Volunteer":"Volunteer",
             "step1Organizer":"Organizer",
             "step1SetUp":"Set up your account:",
-            "step1Email":"E-mail address"
-
+            "step1Email":"E-mail address",
+            "step1Password":"Password",
+            "step1ConfirmPassword":"Confirm Password",
+            "step2uploadProfile": "Upload profile picture",
+            "step2VolunteerUsername" : "Your Username",
+            "step2VolunteerFirstName" : "First Name",
+            "step2VolunteerLastName" : "Last Name",
+            "step2PhoneNumber" : "Your Phone Number",
+            "step2VolunteerBirthday" : "Your Birthday",
+            "step2OrganizerUsername" : "Your Organization Name",
+            "step2OrganizerAddress" : "Your Organization's Address",
+            "step3info": "Type the 4-digits confirmation code we sent to your email address",
+            "step3label": "Confirmation code",
+            "nextButton": "Next",
+            "backButton": "Back",
+            "signUpButton": "Sign up",
+            "confirmButton": "Confirm"
         }
     }
 }
