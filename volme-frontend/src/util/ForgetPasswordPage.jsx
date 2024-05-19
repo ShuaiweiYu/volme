@@ -20,6 +20,7 @@ import IconButton from "@mui/joy/IconButton";
 import SendIcon from '@mui/icons-material/Send';
 import SafetyCheckIcon from '@mui/icons-material/SafetyCheck';
 import DoneIcon from '@mui/icons-material/Done';
+import {useGetUserByEmailAddressQuery} from "../features/users/usersApiSlice";
 
 const ForgotPassword = () => {
     const {t} = useTranslation();

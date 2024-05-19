@@ -1,4 +1,4 @@
-import {createEntityAdapter, createSelector} from "@reduxjs/toolkit";
+import {createEntityAdapter} from "@reduxjs/toolkit";
 import {apiSlice} from "../../app/api/apiSlice";
 
 const usersAdapter = createEntityAdapter({})
@@ -18,8 +18,6 @@ export const usersApiSlice = apiSlice.injectEndpoints({
                 });
                 return usersAdapter.setAll(initialState, loadedUsers)
             },
-            // 在 providesTags 方法中，主要是为了提供缓存标签（cache tags），用于管理缓存数据的过期和更新。
-            // 这个方法在每次查询请求完成后都会被调用，它的作用是根据请求的结果来生成相应的缓存标签数组。
             providesTags: (result, error, arg) => {
                 // 在方法中，首先判断了 result?.ids 是否存在。这个 ids 字段通常表示返回的数据中包含了哪些实体的 ID。
                 if (result?.ids) {
@@ -31,10 +29,18 @@ export const usersApiSlice = apiSlice.injectEndpoints({
                 // 如果不存在 ids 字段，则说明请求失败或者返回的数据为空。此时，会生成一个仅包含一个标签对象的数组，该标签对象的类型为 User，ID 为 LIST。
                 } else return [{type: 'User', id: 'LIST'}]
             }
+        }),
+        getUserByEmailAddress: builder.query({
+            query: (emailAddress) => `/users/${emailAddress}`,
+            validateStatus: (response, result) => {
+                return response.status === 200 && !result.isError
+            },
+            providesTags: (result, error, emailAddress) => [{ type: 'User', id: emailAddress }]
         })
     })
 })
 
 export const {
-    useGetUsersQuery
+    useGetUsersQuery,
+    useGetUserByEmailAddressQuery
 } = usersApiSlice

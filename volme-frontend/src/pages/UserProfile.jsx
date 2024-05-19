@@ -1,4 +1,4 @@
-import {useGetUserByUsernameQuery} from "../features/users/usersApiSlice";
+import {useGetUserByEmailAddressQuery} from "../features/users/usersApiSlice";
 import {useParams} from "react-router-dom";
 import ErrorRoundedIcon from '@mui/icons-material/ErrorRounded';
 import CircularProgress from '@mui/material/CircularProgress';
@@ -17,7 +17,7 @@ const useStyles = createUseStyles({
 const UserProfile = () => {
     const {profileContainer} = useStyles()
 
-    const { username } = useParams();
+    const { emailAddress } = useParams();
 
     const {
         data: user,
@@ -25,7 +25,7 @@ const UserProfile = () => {
         isSuccess,
         isError,
         error
-    } = useGetUserByUsernameQuery(username)
+    } = useGetUserByEmailAddressQuery(emailAddress)
 
     let content
 

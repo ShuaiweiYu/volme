@@ -25,7 +25,7 @@ function App() {
                     <Route path='/' element={<Home/>}/>
                     <Route path='/about' element={<About/>}/>
                     <Route path='/product' element={<Product/>}/>
-                    <Route path='/profile/:username' element={<UserProfile/>}/>
+                    <Route path='/profile/:emailAddress' element={<UserProfile/>}/>
                     <Route path='/reset-password' element={<ForgotPassword/>} />
                     <Route path='*' element={<NoFound/>}/>
                 </Routes>

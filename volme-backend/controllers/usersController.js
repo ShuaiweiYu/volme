@@ -69,7 +69,7 @@ const deleteUser = asyncHandler(async (req, res) => {
 })
 
 // @desc Create a new organizer
-// @route POST /users/organizer
+// @route POST /users/organizers
 const createNewOrganizer = asyncHandler(async (req, res) => {
     const { emailAddress, username, password } = req.body
 
@@ -101,7 +101,7 @@ const createNewOrganizer = asyncHandler(async (req, res) => {
 })
 
 // @desc Update the generic information of an organizer
-// @route PATCH /users/organizer
+// @route PATCH /users/organizers
 const updateOrganizerInfo = asyncHandler(async (req, res) => {
     const { emailAddress, profilePicturePath, phoneNumber, contactInfo, billingInfo, publishedEvents } = req.body
 
@@ -128,13 +128,13 @@ const updateOrganizerInfo = asyncHandler(async (req, res) => {
 })
 
 // @desc Update the payment information of an organizer
-// @route PATCH /users/organizer/payment
+// @route PATCH /users/organizers/payment
 const updateOrganizerPaymentInfo = asyncHandler(async (req, res) => {
     //todo: maybe need paypal credential to finish this?
 })
 
 // @desc Create new a volunteer
-// @route POST /users/volunteer
+// @route POST /users/volunteers
 const createNewVolunteer = asyncHandler(async (req, res) => {
     const { emailAddress, username, password } = req.body
 
@@ -166,7 +166,7 @@ const createNewVolunteer = asyncHandler(async (req, res) => {
 })
 
 // @desc Update the generic information of an organizer
-// @route PATCH /users/volunteer
+// @route PATCH /users/volunteers
 const updateVolunteerInfo = asyncHandler(async (req, res) => {
     const { emailAddress, profilePicturePath, phoneNumber, participationCount, birthday, skills, languages, gender, participatedEvents } = req.body
 
