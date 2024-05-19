@@ -7,6 +7,7 @@ import About from "./pages/About";
 import Product from "./pages/Product";
 import NoFound from "./pages/NotFound";
 import UserProfile from "./pages/UserProfile";
+import Wishlist from "./pages/Wishlist";
 
 function App() {
     const { t, i18n } = useTranslation();
@@ -26,6 +27,7 @@ function App() {
                     <Route path='/product' element={<Product/>}/>
                     <Route path='/profile/:username' element={<UserProfile/>}/>
                     <Route path='*' element={<NoFound/>}/>
+                    <Route path='/wishlist' element={<Wishlist/>}/>
                 </Routes>
             </Router>
         </div>
