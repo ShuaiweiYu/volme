@@ -61,6 +61,7 @@
     "confirmPassword": "Confirm password",
     "stepsList1": "Enter your E-mail address",
     "stepsList2": "Enter the confirmation code we sent to your email address",
-    "stepsList3": "Reset your password"
+    "stepsList3": "Reset your password",
+    "sendCodeError": "Something went wrong, please try again later"
   }
 }

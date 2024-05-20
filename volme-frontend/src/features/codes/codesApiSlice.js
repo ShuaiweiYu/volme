@@ -15,9 +15,26 @@ export const codesApiSlice = apiSlice.injectEndpoints({
             },
             providesTags: (result, error, id) => [{type: 'Code', id: id}]
         }),
-        addNewCode: builder.mutation({}),
-        checkCodeValidity: builder.query({}),
+        addNewCode: builder.mutation({
+            query: (newCode) => ({
+                url: '/codes',
+                method: 'POST',
+                body: newCode
+            }),
+            invalidatesTags: [{ type: 'Code', id: 'LIST' }]
+        }),
+        checkCodeValidity: builder.query({
+            query: ({ id, emailAddress, inputValue }) => ({
+                url: `/codes/check/${id}`,
+                method: 'POST',
+                body: { emailAddress, inputValue }
+            })
+        }),
     })
 })
 
-export const {} = codesApiSlice
+export const {
+    useGetCodeByIdQuery,
+    useAddNewCodeMutation,
+    useCheckCodeValidityQuery
+} = codesApiSlice

@@ -17,7 +17,7 @@ const getCodeBtId = asyncHandler(async (req, res) => {
 })
 
 // @desc Generate a code for user registration
-// @route PUT /codes
+// @route POST /codes
 const generateRegistrationCode = asyncHandler(async (req, res) => {
     const { emailAddress, usage } = req.body
 
@@ -62,7 +62,7 @@ const invalidateCode = asyncHandler(async (req, res) => {
 })
 
 // @desc Generate the code for user registration
-// @route GET /codes/check/:id
+// @route POST /codes/check/:id
 const checkCodeValidity = asyncHandler(async (req, res) => {
     const { id } = req.params
     const { emailAddress, inputValue } = req.body
@@ -70,6 +70,8 @@ const checkCodeValidity = asyncHandler(async (req, res) => {
     const code = await CodeModel.findById({ id }).lean().exec()
 
     if (code.isValid && code.assignTo === emailAddress && code.value === inputValue) {
+        code.isValid = false
+        const updatedCode = await code.save()
         res.status(200)
     } else {
         res.status(400)

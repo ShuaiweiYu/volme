@@ -20,7 +20,9 @@ import IconButton from "@mui/joy/IconButton";
 import SendIcon from '@mui/icons-material/Send';
 import SafetyCheckIcon from '@mui/icons-material/SafetyCheck';
 import DoneIcon from '@mui/icons-material/Done';
-import {useGetUserByEmailAddressQuery} from "../features/users/usersApiSlice";
+import {useGetUserByEmailAddressQuery} from '../features/users/usersApiSlice';
+import {useCheckCodeValidityQuery, useAddNewCodeMutation, useGetCodeByIdQuery} from '../features/codes/codesApiSlice'
+import CircularProgress from "@mui/material/CircularProgress";
 
 const ForgotPassword = () => {
     const {t} = useTranslation();
@@ -38,6 +40,10 @@ const ForgotPassword = () => {
     const [showPart2, setShowPart2] = useState(false);
     const [showPart3, setShowPart3] = useState(false);
     const [resetSuccess, setResetSuccess] = useState(false);
+    const [codeId, setCodeId] = useState("");
+
+    const [addNewCode, { isLoading: isAddNewCodeLoading, isSuccess: isAddNewCodeSuccess, isError: isAddNewCodeError, }] = useAddNewCodeMutation();
+    // const [checkCodeValidity, { isLoading: isVerifyingCode, data: codeData, error: verifyCodeError }] = useLazyCheckCodeValidityQuery();
 
     const steps = [t('resetPassword.stepsList1'), t('resetPassword.stepsList2'), t('resetPassword.stepsList3')]
 
@@ -91,9 +97,17 @@ const ForgotPassword = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
     };
 
-    const sendCode = () => {
-        handleNext();
-        setShowPart2(true);
+    const sendCode = async () => {
+        try {
+            const result = await addNewCode({emailAddress: email, usage: "PASSWORDRESET"}).unwrap();
+            if (result) {
+                setCodeId(result)
+                handleNext();
+                setShowPart2(true);
+            }
+        } catch (error) {
+            console.error('Error sending code:', error);
+        }
     }
 
     const verifyCode = () => {
@@ -167,14 +181,20 @@ const ForgotPassword = () => {
                 <Button
                     type="button"
                     onClick={sendCode}
-                    disabled={emailError !== '' || email === ''}
+                    disabled={emailError !== '' || email === '' || isAddNewCodeLoading || isAddNewCodeSuccess}
                     variant="contained"
                     fullWidth
-                    endIcon={<SendIcon />}
-                    style={{width: '50%'}}
+                    endIcon={isAddNewCodeLoading ? <CircularProgress size={24} /> : <SendIcon />}
+                    style={{ width: '50%' }}
                 >
                     {t('resetPassword.sendCodeButton')}
                 </Button>
+
+                {isAddNewCodeError && (
+                    <Typography color="error">
+                        {t('resetPassword.sendCodeError')}
+                    </Typography>
+                )}
 
                 {showPart2 && (
                     <>
